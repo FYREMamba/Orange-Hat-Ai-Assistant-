@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity AI Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+        .container {
+            max-width: 900px;
+        }
+        .card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+        }
+        .loading-dots::after {
+            content: ' .';
+            animation: dots 1s steps(5, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% {
+                color: rgba(0,0,0,0);
+                text-shadow:
+                    .25em 0 0 rgba(0,0,0,0),
+                    .5em 0 0 rgba(0,0,0,0);
+            }
+            40% {
+                color: white;
+                text-shadow:
+                    .25em 0 0 rgba(0,0,0,0),
+                    .5em 0 0 rgba(0,0,0,0);
+            }
+            60% {
+                text-shadow:
+                    .25em 0 0 white,
+                    .5em 0 0 rgba(0,0,0,0);
+            }
+            80%, 100% {
+                text-shadow:
+                    .25em 0 0 white,
+                    .5em 0 0 white;
+            }
+        }
+        .nav-link {
+            transition: color 0.2s, border-color 0.2s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+        .nav-link.active {
+            border-bottom: 2px solid #ea580c;
+            color: #ea580c;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white p-4">
+
+    <div class="container mx-auto">
+        
+        <!-- Main Tool Section -->
+        <section id="tool-main">
+            <header class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-orange-400">White Hat AI Assistant</h1>
+                <p class="text-gray-400 mt-2">Your partner in ethical hacking and security analysis.</p>
+            </header>
+
+            <div class="card mb-6">
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                    <textarea id="prompt-input" rows="4" class="w-full md:w-3/4 p-4 bg-gray-800 text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Type your cybersecurity question here..."></textarea>
+                    <div class="flex flex-col md:w-1/4 space-y-2">
+                        <button id="analyze-button" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+                            Run Analysis
+                        </button>
+                        <button id="clear-button" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+                            Clear
+                        </button>
+                        <button id="view-guide-button" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+                            View Guide
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="text-2xl font-bold mb-4">AI Response</h2>
+                <div id="response-area" class="bg-gray-800 p-4 rounded-lg overflow-y-auto max-h-[500px] whitespace-pre-wrap text-sm leading-relaxed">
+                    <p class="text-gray-500">Responses will appear here.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guide Section -->
+        <section id="guide-main" class="hidden">
+            <header class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-orange-400">Cybersecurity AI Assistant Guide</h1>
+                <p class="text-gray-400 mt-2">Get the most out of your AI-powered security partner.</p>
+            </header>
+
+            <!-- Navigation Menu -->
+            <nav class="mb-8">
+                <ul class="flex justify-center space-x-6 text-xl font-medium">
+                    <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="getting-started">Getting Started</a></li>
+                    <li><a href="#" class="nav-link" data-page="example-queries">Example Queries</a></li>
+                    <li><a href="#" class="nav-link" data-page="advanced-usage">Advanced Usage</a></li>
+                </ul>
+            </nav>
+
+            <!-- Page Content -->
+            <div id="content-container">
+                <!-- Home Page -->
+                <section id="home" class="page-content card">
+                    <h2 class="text-2xl font-bold text-orange-400 mb-4">Welcome to Your Assistant</h2>
+                    <p class="mb-4">This guide will help you understand and effectively use your new AI-powered Cybersecurity Assistant. This tool is designed to be your partner in ethical hacking, code analysis, and security research. Think of it as a conversational companion that can help you with specific tasks, from finding vulnerabilities in code to understanding complex security concepts.</p>
+                    <p>The AI is a powerful tool, but it is not a replacement for human judgment and expertise. It is meant to augment your skills and help you work faster and smarter. Use this guide to learn how to ask the right questions and interpret the results effectively.</p>
+                    <p>Ready to get started? Navigate to the **Getting Started** section to learn how to use the tool's core features.</p>
+                </section>
+
+                <!-- Getting Started Page -->
+                <section id="getting-started" class="page-content card hidden">
+                    <h2 class="text-2xl font-bold text-orange-400 mb-4">How to Use the Tool</h2>
+                    <p class="mb-4">The Cybersecurity AI Assistant is designed to be simple and intuitive. Follow these steps to get started:</p>
+                    <ol class="list-decimal list-inside space-y-4 text-sm leading-relaxed pl-4">
+                        <li>
+                            <h3 class="font-bold">Enter Your Query</h3>
+                            <p>In the main text box, type your cybersecurity question or task. Be as specific as possible. The more detail you provide, the better the AI's response will be. You can ask about a topic, paste a code snippet, or describe a scenario.</p>
+                        </li>
+                        <li>
+                            <h3 class="font-bold">Click "Run Analysis"</h3>
+                            <p>Once your query is ready, click the **Run Analysis** button. The AI will process your request, and the response will appear in the section below. You will see a "Analyzing..." message while the AI is working.</p>
+                        </li>
+                        <li>
+                            <h3 class="font-bold">Review the Response</h3>
+                            <p>Read the AI's response carefully. The assistant's goal is to provide concise and actionable advice. If the response isn't what you expected, try rephrasing your query to be more specific.</p>
+                        </li>
+                        <li>
+                            <h3 class="font-bold">Use the "Clear" Button</h3>
+                            <p>If you want to start a new conversation, click the **Clear** button. This will erase the text box and the previous response, allowing you to begin with a clean slate.</p>
+                        </li>
+                    </ol>
+                </section>
+
+                <!-- Example Queries Page -->
+                <section id="example-queries" class="page-content card hidden">
+                    <h2 class="text-2xl font-bold text-orange-400 mb-4">Effective Query Examples</h2>
+                    <p class="mb-4">To get the best results from your AI Assistant, learn how to craft effective queries. Here are some examples for different use cases:</p>
+                    
+                    <h3 class="text-xl font-bold mt-6 mb-2">Code Analysis</h3>
+                    <p class="mb-2">Ask the AI to find vulnerabilities in a code snippet.</p>
+                    <div class="bg-gray-800 p-3 rounded-lg text-sm mb-4">
+                        <pre>Analyze this Python code for vulnerabilities: <code>def login(username, password): ...</code></pre>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mt-6 mb-2">Threat Modeling</h3>
+                    <p class="mb-2">Get help identifying potential attack vectors for a system.</p>
+                    <div class="bg-gray-800 p-3 rounded-lg text-sm mb-4">
+                        <pre>Given a web application with a user login page, a database, and an administrative dashboard, what are three potential attack vectors?</pre>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mt-6 mb-2">Learning and Explanation</h3>
+                    <p class="mb-2">Ask the AI to explain a concept in simple terms.</p>
+                    <div class="bg-gray-800 p-3 rounded-lg text-sm mb-4">
+                        <pre>Explain what a "zero-day" vulnerability is.</pre>
+                    </div>
+
+                    <h3 class="text-xl font-bold mt-6 mb-2">Countermeasure Suggestions</h3>
+                    <p class="mb-2">Get actionable advice on how to secure a system or fix a problem.</p>
+                    <div class="bg-gray-800 p-3 rounded-lg text-sm mb-4">
+                        <pre>What are the best practices for securing a REST API?</pre>
+                    </div>
+                </section>
+
+                <!-- Advanced Usage Page -->
+                <section id="advanced-usage" class="page-content card hidden">
+                    <h2 class="text-2xl font-bold text-orange-400 mb-4">Advanced Tips</h2>
+                    <p class="mb-4">As you become more comfortable, you can use the AI Assistant for more complex tasks:</p>
+                    <ul class="list-disc list-inside space-y-4 text-sm leading-relaxed pl-4">
+                        <li>
+                            <h3 class="font-bold">Prompt Engineering</h3>
+                            <p>The way you phrase your query is crucial. Experiment with different phrasings to get the best results. For example, instead of just "Fix this code," try "Act as a security expert and rewrite this code to prevent cross-site scripting attacks."</p>
+                        </li>
+                        <li>
+                            <h3 class="font-bold">Using the AI for Documentation</h3>
+                            <p>After you have analyzed a vulnerability, you can ask the AI to help you draft documentation or a report on your findings. A query like, "Write a professional report on the SQL injection vulnerability we just discussed," can save you a lot of time.</p>
+                        </li>
+                        <li>
+                            <h3 class="font-bold">Limitations</h3>
+                            <p>Remember, the AI is a tool, not a human. It does not have intuition, context of your specific environment, or the ability to replace a professional penetration test. Always use your own judgment and verify the AI's advice before implementing it in a live system.</p>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            
+            <div class="flex justify-center mt-8">
+                <button id="back-to-tool-button" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+                    Back to Tool
+                </button>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const promptInput = document.getElementById('prompt-input');
+            const analyzeButton = document.getElementById('analyze-button');
+            const clearButton = document.getElementById('clear-button');
+            const viewGuideButton = document.getElementById('view-guide-button');
+            const backToToolButton = document.getElementById('back-to-tool-button');
+            const responseArea = document.getElementById('response-area');
+            const toolMain = document.getElementById('tool-main');
+            const guideMain = document.getElementById('guide-main');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const guidePages = document.querySelectorAll('.page-content');
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const systemPrompt = "Act as a world-class white hat cybersecurity expert. Provide concise, actionable advice and analysis. Explain vulnerabilities and countermeasures clearly. Do not make up information or provide details on malicious hacking.";
+
+            let isAnalyzing = false;
+
+            const callGeminiAPI = async (userQuery) => {
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                return result.candidates?.[0]?.content?.parts?.[0]?.text || "Error: Could not get a response from the AI.";
+            };
+
+            const handleAnalysis = async () => {
+                if (isAnalyzing) return;
+                const userQuery = promptInput.value.trim();
+                if (!userQuery) {
+                    console.error("Please enter a query to analyze.");
+                    return;
+                }
+
+                isAnalyzing = true;
+                analyzeButton.disabled = true;
+                analyzeButton.textContent = 'Analyzing...';
+                responseArea.innerHTML = `<p class="text-gray-400 loading-dots">Analyzing your query</p>`;
+                
+                try {
+                    const responseText = await callGeminiAPI(userQuery);
+                    responseArea.textContent = responseText;
+                } catch (error) {
+                    console.error("API call failed:", error);
+                    responseArea.textContent = "An error occurred. Please try again later.";
+                } finally {
+                    isAnalyzing = false;
+                    analyzeButton.disabled = false;
+                    analyzeButton.textContent = 'Run Analysis';
+                }
+            };
+
+            const handleClear = () => {
+                promptInput.value = '';
+                responseArea.innerHTML = `<p class="text-gray-500">Responses will appear here.</p>`;
+            };
+
+            const showSection = (sectionId) => {
+                toolMain.classList.add('hidden');
+                guideMain.classList.add('hidden');
+                document.getElementById(sectionId).classList.remove('hidden');
+            };
+
+            const showGuidePage = (pageId) => {
+                guidePages.forEach(page => {
+                    if (page.id === pageId) {
+                        page.classList.remove('hidden');
+                    } else {
+                        page.classList.add('hidden');
+                    }
+                });
+            };
+
+            const setActiveLink = (linkElement) => {
+                navLinks.forEach(link => link.classList.remove('active'));
+                linkElement.classList.add('active');
+            };
+
+            // Event Listeners for the main sections
+            analyzeButton.addEventListener('click', handleAnalysis);
+            clearButton.addEventListener('click', handleClear);
+            viewGuideButton.addEventListener('click', () => showSection('guide-main'));
+            backToToolButton.addEventListener('click', () => showSection('tool-main'));
+
+            promptInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !isAnalyzing) {
+                    e.preventDefault();
+                    handleAnalysis();
+                }
+            });
+
+            // Event Listeners for the guide navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = e.target.dataset.page;
+                    showGuidePage(pageId);
+                    setActiveLink(e.target);
+                });
+            });
+
+            // Show the main tool page and the home guide page on initial load
+            showSection('tool-main');
+            showGuidePage('home');
+        });
+    </script>
+</body>
+</html>
